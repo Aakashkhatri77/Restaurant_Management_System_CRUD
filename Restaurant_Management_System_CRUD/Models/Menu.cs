@@ -1,13 +1,23 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Restaurant_Management_System_CRUD.Models
 {
     public class Menu
     {
-        [Key]
-        public int Menu_Id { get; set; }
-        public string Menu_Name { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
         public float  Price { get; set; }
         public string  Description { get; set; }
+         public int CategoryId { get; set; }
+        public virtual Category Category { get; set;}
+
+
+        // Foreign key 
+      /*  [Display(Name = "Category")]
+        public int CategoryId { get; set; }
+
+        [ForeignKey("CategoryId")]
+        public virtual Category Categories { get; set; }*/
     }
 }

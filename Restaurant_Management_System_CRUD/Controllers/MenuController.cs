@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Restaurant_Management_System_CRUD.Context;
 using Restaurant_Management_System_CRUD.Models;
+using Restaurant_Management_System_CRUD.ViewModel;
+using System.Diagnostics;
 
 namespace Restaurant_Management_System_CRUD.Controllers
 {
@@ -15,11 +18,13 @@ namespace Restaurant_Management_System_CRUD.Controllers
             db = _db;
         }
         // GET: MenuController
-        public ActionResult Index()
-        {
-            var data = db.Menu.ToList();
+        public async Task<IActionResult> Index()
+        {   
+            var data = await db.Menu.Include("Category").ToListAsync();
             return View(data);
         }
+
+       
 
         // GET: MenuController/Details/5
         public ActionResult Details(int id)
@@ -31,45 +36,75 @@ namespace Restaurant_Management_System_CRUD.Controllers
         // GET: MenuController/Create
         public ActionResult Create()
         {
+            List<Category> li = new List<Category>();
+            li = db.Categories.ToList();
+            ViewBag.listofitems = li;
             return View();
         }
 
         // POST: MenuController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Menu _menu)
+        public ActionResult Create(MenuVm _menu)
         {
+
             try
             {
-                var menu = _menu;
+                var menu = new Menu()
+                {
+                    Name = _menu.Name,
+                    Category = _menu.Category,
+                    Price = _menu.Price,
+                    Description = _menu.Description,
+                    CategoryId= _menu.CategoryId,
+                };
+                //var menu = _Menu;
                 db.Menu.Add(menu);
                 db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                Debug.WriteLine(ex.ToString());
             }
+            List<Category> li = new List<Category>();
+            li = db.Categories.ToList();
+            ViewBag.listofitems = li;
+                return View();
         }
 
         // GET: MenuController/Edit/5
         public ActionResult Edit(int id)
         {
+            List<Category> li = new List<Category>();
+            li = db.Categories.ToList();
+            ViewBag.listofitems = li;
+
             var _edit = db.Menu.Find(id);
-            return View(_edit);
+            var vm = new MenuVm()
+            {
+                Name = _edit.Name,
+                Category = _edit.Category,
+                Price = _edit.Price,
+                Description = _edit.Description,
+                CategoryId = _edit.CategoryId,
+            };
+            return View(vm);
         }
 
         // POST: MenuController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Menu edit)
+        public ActionResult Edit(int id, MenuVm edit)
         {
             try
             {
                 var model = db.Menu.Find(id);
-                model.Menu_Name = edit.Menu_Name;
+                model.Name = edit.Name;
+                model.Category = edit.Category;
                 model.Price = edit.Price;
                 model.Description = edit.Description;
+                model.CategoryId = edit.CategoryId;
                 db.Menu.Update(model);
                 db.SaveChanges();
                 return RedirectToAction(nameof(Index));
@@ -78,6 +113,9 @@ namespace Restaurant_Management_System_CRUD.Controllers
             {
                 return View();
             }
+            List<Category> li = new List<Category>();
+            li = db.Categories.ToList();
+            ViewBag.listofitems = li;
         }
 
         // GET: MenuController/Delete/5

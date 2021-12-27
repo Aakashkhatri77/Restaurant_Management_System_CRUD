@@ -11,8 +11,8 @@ using Restaurant_Management_System_CRUD.Context;
 namespace Restaurant_Management_System_CRUD.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211223091629_MenuModelAdded")]
-    partial class MenuModelAdded
+    [Migration("20211227162252_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -64,19 +64,36 @@ namespace Restaurant_Management_System_CRUD.Migrations
                     b.ToTable("Admin");
                 });
 
-            modelBuilder.Entity("Restaurant_Management_System_CRUD.Models.Customer", b =>
+            modelBuilder.Entity("Restaurant_Management_System_CRUD.Models.Category", b =>
                 {
-                    b.Property<int>("CustomerId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Address")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CustomerName")
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("Restaurant_Management_System_CRUD.Models.Customer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -84,37 +101,57 @@ namespace Restaurant_Management_System_CRUD.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CustomerId");
+                    b.HasKey("Id");
 
                     b.ToTable("RestuarantCustomer");
                 });
 
             modelBuilder.Entity("Restaurant_Management_System_CRUD.Models.Menu", b =>
                 {
-                    b.Property<int>("Menu_Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Menu_Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Menu_Name")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("Price")
                         .HasColumnType("real");
 
-                    b.HasKey("Menu_Id");
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Menu");
+                });
+
+            modelBuilder.Entity("Restaurant_Management_System_CRUD.Models.Menu", b =>
+                {
+                    b.HasOne("Restaurant_Management_System_CRUD.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

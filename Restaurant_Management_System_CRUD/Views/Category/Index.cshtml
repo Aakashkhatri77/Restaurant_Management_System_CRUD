@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Restaurant_Management_System_CRUD.Models.Customer>
+﻿@model IEnumerable<Restaurant_Management_System_CRUD.Models.Category>
 
 @{
     ViewData["Title"] = "Index";
@@ -6,9 +6,9 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create" class="btn btn-success">Create New</a>
-</p>
+@*<p>
+    <a asp-action="Create">Create New</a>
+</p>*@
 <table class="table">
     <thead>
         <tr>
@@ -16,13 +16,7 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Phone)
+                @Html.DisplayNameFor(model => model.Description)
             </th>
             <th></th>
         </tr>
@@ -34,13 +28,7 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone)
+                @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
                 <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |

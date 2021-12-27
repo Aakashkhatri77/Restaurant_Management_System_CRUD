@@ -68,15 +68,21 @@ namespace Restaurant_Management_System_CRUD.Controllers
             var _edit = db.Admin.Find(id);
             var vm = new AdministratorVm()
             {
-                FirstName = 
-            }
-            return View(_edit);
+                FirstName = _edit.FirstName,
+                LastName = _edit.LastName,
+                Email = _edit.Email,
+                Address = _edit.Address,
+                Username = _edit.Username,
+                Password = _edit.Password,
+                Confirm_Password = _edit.Confirm_Password
+            };
+            return View(vm);
         }
 
         // POST: AdminController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Administrator edit)
+        public ActionResult Edit(int id, AdministratorVm edit)
         {
             try
             {

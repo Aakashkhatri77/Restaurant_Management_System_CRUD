@@ -5,6 +5,10 @@ namespace Restaurant_Management_System_CRUD.Context
 {
     public class ApplicationDbContext: DbContext
     {
+        public ApplicationDbContext()
+        {
+        }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
@@ -12,6 +16,16 @@ namespace Restaurant_Management_System_CRUD.Context
         public DbSet<Customer> RestuarantCustomer { get; set; }
         public DbSet<Administrator> Admin { get; set; }
         public DbSet<Menu> Menu { get; set; }
-        
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<ViewCustomer> ViewCustomer { get; set; }
+
+/*        public IEnumerable<Category> Get()
+        {
+            ApplicationDbContext context = new ApplicationDbContext();
+            return context.Categories;
+        }*/
+
     }
+
+    
 }

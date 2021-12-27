@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Restaurant_Management_System_CRUD.Context;
 
@@ -10,9 +11,10 @@ using Restaurant_Management_System_CRUD.Context;
 namespace Restaurant_Management_System_CRUD.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211226071030_menu")]
+    partial class menu
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -85,13 +87,17 @@ namespace Restaurant_Management_System_CRUD.Migrations
 
             modelBuilder.Entity("Restaurant_Management_System_CRUD.Models.Customer", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CustomerId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"), 1L, 1);
 
                     b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomerName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -99,15 +105,11 @@ namespace Restaurant_Management_System_CRUD.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("CustomerId");
 
                     b.ToTable("RestuarantCustomer");
                 });
@@ -141,24 +143,6 @@ namespace Restaurant_Management_System_CRUD.Migrations
                     b.ToTable("Menu");
                 });
 
-            modelBuilder.Entity("Restaurant_Management_System_CRUD.Models.ViewCustomer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("ViewCustomer");
-                });
-
             modelBuilder.Entity("Restaurant_Management_System_CRUD.Models.Menu", b =>
                 {
                     b.HasOne("Restaurant_Management_System_CRUD.Models.Category", "Category")
@@ -168,17 +152,6 @@ namespace Restaurant_Management_System_CRUD.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("Restaurant_Management_System_CRUD.Models.ViewCustomer", b =>
-                {
-                    b.HasOne("Restaurant_Management_System_CRUD.Models.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
                 });
 #pragma warning restore 612, 618
         }

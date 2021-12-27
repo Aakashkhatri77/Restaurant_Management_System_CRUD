@@ -5,10 +5,10 @@ namespace Restaurant_Management_System_CRUD.ViewModel
     public class CustomerVm
     {
         [Key]
-        public int CustomerId { get; set; }
+        public int Id { get; set; }
         //[Required ]
         [StringLength(15, MinimumLength = 4, ErrorMessage = "Maximum length: 15 Minimum length : 4 ")]
-        public string CustomerName { get; set; }
+        public string Name { get; set; }
         //[Required]
         [DataType(DataType.EmailAddress, ErrorMessage = "Invalid Email")]
         public string Email { get; set; }

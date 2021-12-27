@@ -41,7 +41,7 @@ namespace Restaurant_Management_System_CRUD.Controllers
         {
             var customer= new Customer()
             {
-                CustomerName = Vm.CustomerName,
+                Name = Vm.Name,
                 Email = Vm.Email,
                 Address = Vm.Address,
                 Phone = Vm.Phone
@@ -62,7 +62,7 @@ namespace Restaurant_Management_System_CRUD.Controllers
             var _edit = db.RestuarantCustomer.Find(id);
             var vm = new CustomerVm()
             {
-                CustomerName = _edit.CustomerName,
+                Name = _edit.Name,
                 Email = _edit.Email,
                 Phone = _edit.Phone,
                 Address = _edit.Address,
@@ -77,7 +77,7 @@ namespace Restaurant_Management_System_CRUD.Controllers
         {
 
                 var model = db.RestuarantCustomer.Find(id);
-                model.CustomerName = Vm.CustomerName;
+                model.Name = Vm.Name;
                 model.Email = Vm.Email;
                 model.Address = Vm.Address;
                 model.Phone = Vm.Phone;
