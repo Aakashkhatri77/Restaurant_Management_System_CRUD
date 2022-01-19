@@ -1,8 +1,13 @@
-﻿@model Restaurant_Management_System_CRUD.ViewModel.MenuVm
+﻿@model Restaurant_Management_System_CRUD.Models.Menu
 
 @{
     ViewData["Title"] = "Edit";
+    var categories = ViewData["categories"] as IEnumerable<Category>;
 }
+
+@Html.Raw(TempData["UpdateMessage"])
+@Html.Raw(TempData["SizeMessage"])
+@Html.Raw(TempData["ExtensionMessage"])
 
 <h1>Edit</h1>
 
@@ -10,7 +15,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
@@ -18,16 +23,12 @@
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-
              <div class="form-group">
-                <label asp-for="Category" class="control-label"></label>
-                @*<input asp-for="Category" class="form-control" />
-                <span asp-validation-for="Category" class="text-danger">*@
-                    @*@Html.DropDownList("CountryList", new  SelectList(new[] {"Nepal", "India", "Bangladesh", "Pakistan", "China"}), "Select", new { @class = "form-control"})*@
-
-                    <select asp-for="CategoryId" asp-items="@(new SelectList(ViewBag.listofitems,"Id", "Name"))"></select>
-
-                </span>
+                @*<label asp-for="Category" class="control-label"></label>
+                    <select asp-for="CategoryId" asp-items="@(new SelectList(categories,"Id", "Name"))"></select>*@
+                     <label asp-for="CategoryId" class="control-label">Category</label>
+                    <select asp-for="CategoryId" class = "form-control" asp-items="@(new SelectList(categories,"Id", "Name"))" ></select>
+               
             </div>
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
@@ -39,6 +40,13 @@
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
+             <div class="form-group">
+                <label asp-for="ImageFile" class="control-label">Upload Image</label>
+                <img src="~/Image/@Model.Image" height="100px" width="120px" />  
+                <input asp-for="ImageFile" class="form-control" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+            
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

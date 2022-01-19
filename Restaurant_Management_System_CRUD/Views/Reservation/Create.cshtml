@@ -1,0 +1,55 @@
+﻿@model Restaurant_Management_System_CRUD.Models.Reservation
+
+@{
+    ViewData["Title"] = "Create";
+    var tableType = ViewData["tableType"] as IEnumerable<Table>;
+}
+
+<h4>Table Reservation</h4>
+<hr />
+
+<div class="row">
+    <div class="col-md-10">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="row">
+                <div class="form-group col-6">
+                    <label asp-for="CheckIn" class="control-label">Check In</label>
+                    <input asp-for="CheckIn" class="form-control" />
+                    <span asp-validation-for="CheckIn" class="text-danger"></span>
+                </div>
+                <div class="form-group col-6">
+                    <label asp-for="TableId" class="control-label">Table Name</label>
+                    <select asp-for="TableId" class = "form-control" asp-items="@(new SelectList(tableType,"Id", "Name"))" ></select>
+                    <span asp-validation-for="TableId" class="text-danger"></span>
+                </div>
+                 <div class="form-group col-6">
+                    <label asp-for="TableId" class="control-label">No of Chairs</label>
+                    <select asp-for="TableId" class = "form-control" asp-items="@(new SelectList(tableType,"Id", "NoOfChair"))" ></select>
+                    <span asp-validation-for="TableId" class="text-danger"></span>
+                </div>
+               
+                <div class="form-group col-6">
+                    <label asp-for="NoOfPersons" class="control-label">No. of Persons</label>
+                    <input asp-for="NoOfPersons" class="form-control" />
+                    <span asp-validation-for="NoOfPersons" class="text-danger"></span>
+                </div>
+            </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                     <a asp-action="Index" class="btn btn-danger">Back to List</a>
+                </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}

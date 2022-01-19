@@ -55,16 +55,27 @@
                                 </ul>
                                 </div>
                         </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ViewBoooking" asp-action="Index">ViewBooking</a>
+                           <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Table" asp-action="Index">Book a Table</a>
                         </li>
+                     
+                      
+                       @* @if(User.IsInRole("Admin"))
+                        {
+                            
+                        }*@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ViewCustomer" asp-action="Index">ViewCustomer</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index">My Order</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
+                     
+                           <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Reservation" asp-action="Index">Reservation</a>
                         </li>
+                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Menu" asp-action="Checkout"><i class="bi bi-cart"></i>dscsdc</a>
+                        </li>
+                         
+                     
                     </ul>
                 </div>
                 

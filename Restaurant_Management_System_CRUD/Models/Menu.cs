@@ -11,13 +11,18 @@ namespace Restaurant_Management_System_CRUD.Models
         public string  Description { get; set; }
          public int CategoryId { get; set; }
         public virtual Category Category { get; set;}
+        public string Image { get; set; }
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; }
 
 
         // Foreign key 
-      /*  [Display(Name = "Category")]
-        public int CategoryId { get; set; }
+        /*  [Display(Name = "Category")]
+          public int CategoryId { get; set; }
 
-        [ForeignKey("CategoryId")]
-        public virtual Category Categories { get; set; }*/
+          [ForeignKey("CategoryId")]
+          public virtual Category Categories { get; set; }*/
     }
 }

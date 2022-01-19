@@ -1,0 +1,66 @@
+﻿@using Newtonsoft.Json
+    @{
+    ViewBag.Title = "checkout";
+}
+@using Microsoft.AspNetCore.Http
+@using Restaurant_Management_System_CRUD.ViewModel
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+<h2>Checkout</h2>
+
+@{
+    var session = HttpContextAccessor.HttpContext.Session.GetString(StrConsts.SessionString.Cart);
+    var sessionObj = JsonConvert.DeserializeObject<List<CartViewModel>>(session);
+}
+
+@if (sessionObj!=null)
+{
+    <table class="table table-responsive">
+        <thead class="thead-primary">
+            <tr class="text-center">
+                <th>ID</th>
+                <th>Menu Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+               
+            @foreach (var item in sessionObj)
+            {
+                <tr class="text-center">
+                    @*                    <td class="menu-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+                    *@
+                    <td class="menu-name"><h3>@item.MenuId</h3></td>
+                    <td class="menu-name"><h3>@item.MenuName</h3></td>
+                    <td class="price">@item.Price</td>
+                    <td class="quantity">@item.Quantity</td>
+                   
+                    <td class="total">@item.Total</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="row justify-content-end">
+        <div class="col-lg-4 mt-5 cart-wrap ftco-animate fadeInUp ftco-animate">
+            <div class="cart-total mb-3">
+                <h3>Cart Totals</h3>
+
+                <hr />
+                <p class="d-flex total-price">
+                    <span>Total</span>
+                
+                    <span>Rs. @sessionObj.Sum(p=>p.Total)</span>
+                </p>
+            </div>
+            <a asp-action="Checkout" class="btn btn-primary py-3 px-4">Proceed to Checkout</a>
+        </div>
+    </div>
+}
+else
+{
+    <h2 style="color:red"> Cart is empty....</h2>
+    @Html.ActionLink("go Back", "Index","Menu")
+}

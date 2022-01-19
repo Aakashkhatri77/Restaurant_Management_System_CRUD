@@ -9,11 +9,30 @@
 <p>
     <a asp-action="Create" class="btn btn-success">Create New</a>
 </p>
+
+@*@using (Html.BeginForm())  
+{  
+    <p>  
+        Search Menu: @Html.TextBox("Search_Data", ViewBag.FilterValue as string)  
+        <input type="submit" value="Find" />  
+    </p>  
+}  *@
+   
+
+
+@*<form asp-controller="Customer" asp-action="Index">
+    <p>
+        <input type="text" name="searchString" placeholder="search..." />
+        <input type="submit" value="Filter" />
+    </p>
+</form>*@
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @*@Html.DisplayNameFor(model => model.Name)*@
+                                @Html.ActionLink("Name", "Index", new { Sorting_Order = ViewBag.SortingName })  
+
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Email)

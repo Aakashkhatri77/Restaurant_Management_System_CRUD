@@ -15,10 +15,41 @@ namespace Restaurant_Management_System_CRUD.Controllers
         }
 
         // GET: CustomerController
-        public ActionResult Index()
+        public ActionResult Index(string Sorting_Order, string Search_Data)
         {
+            ViewBag.SortingName = String.IsNullOrEmpty(Sorting_Order) ? "Name_Description" : "";
+
+            var dataa = from _name in db.RestuarantCustomer select _name;
+            
+                if (!String.IsNullOrEmpty(Search_Data))
+                {
+                    dataa = dataa.Where(_name => _name.Name.ToLower().Contains(Search_Data.ToLower()));
+                }
+
+       
+            switch (Sorting_Order)
+            {
+                case "Name_Description":
+                    dataa = dataa.OrderByDescending(_name => _name.Name);
+                    break;
+                default:
+                    dataa = dataa.OrderBy(_menu => _menu.Name);
+                    break;
+            }
+
+            return View(dataa.ToList());
+
+
+
+           /* var customer = from m in db.RestuarantCustomer select m;
+            if (!String.IsNullOrEmpty(Search_Data))
+            {
+                customer = customer.Where(s => s.Name.ToLower().Contains(Search_Data.ToLower()));
+            }
+            return View(customer);
+
             var data = db.RestuarantCustomer.ToList();
-            return View(data);
+            return View(data);*/
         }
 
         // GET: CustomerController/Details/5
@@ -52,7 +83,7 @@ namespace Restaurant_Management_System_CRUD.Controllers
                     db.SaveChanges();
                     return RedirectToAction(nameof(Index));
               
-                    return View();
+                    /*return View();*/
   
         }
 

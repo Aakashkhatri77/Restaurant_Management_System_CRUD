@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Restaurant_Management_System_CRUD.Models.ViewCustomer>
+﻿@model IEnumerable<Restaurant_Management_System_CRUD.Models.Customer>
 
 @{
     ViewData["Title"] = "Index";
@@ -11,16 +11,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Customer.Name)
+                @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Customer.Address)
+                @Html.DisplayNameFor(model => model.Address)
             </th>
               <th>
-                @Html.DisplayNameFor(model => model.Customer.Email)
+                @Html.DisplayNameFor(model => model.Email)
             </th>
               <th>
-                @Html.DisplayNameFor(model => model.Customer.Phone)
+                @Html.DisplayNameFor(model => model.Phone)
             </th>
             <th></th>
         </tr>
@@ -29,16 +29,16 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Customer.Name)
+                @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Customer.Address)
+                @Html.DisplayFor(modelItem => item.Address)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Customer.Email)
+                @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Customer.Phone)
+                @Html.DisplayFor(modelItem => item.Phone)
             </td>
             <td>
              @*   <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

@@ -2,54 +2,194 @@
 
 @{
     ViewData["Title"] = "Index";
+
+    Pager pager = new Pager();
+
+    int pageNo = 0;
+
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
 }
 
-<h1>Index</h1>
+@*<h1>Index</h1>
 
-@*<p>
-    <a asp-action="Create" class="btn btn-success">Create New</a>
-</p>*@
-<table class="table">
+    <h3 style="color:#808080; font-family:'Arial Rounded MT';text-align:center"> <span class="btn btn-info">@Html.ActionLink("Check Out", "Checkout", "Menu")</span></h3>
+*@
+
+@using (Html.BeginForm())
+{
+    <div class="search-sort">
+
+    <div class="search">
+
+            <p>
+                Search Menu: @Html.TextBox("Search_Data", ViewBag.FilterValue as string)
+                <input type="submit" value="Find" />
+            </p>
+    </div>
+    <div class="dropdown">
+            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                Sort By:
+            </a>
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li>@Html.ActionLink("Name", "Index", new { Sorting_Order = ViewBag.SortingName })</li>
+                <li>@Html.ActionLink("Category", "Index", new { Sorting_Order = ViewBag.SortingCategory })</li>
+                <li>@Html.ActionLink("Price", "Index", new { Sorting_Order = ViewBag.SortingPrice })</li>
+            </ul>
+        </div>
+    </div>
+}
+
+ 
+
+      
+
+
+@*<table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+    <th>
+    @Html.DisplayNameFor(model => model.Image)
+    </th>
+    <th>
+    @Html.ActionLink("Name", "Index", new { Sorting_Order = ViewBag.SortingName })
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.Category)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.Price)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.Description)
+    </th>
+
+    </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                
+    @foreach (var item in Model)
+    {
+    <tr>
+    <td>
+    <img src="~/Image/@item.Image" height="60px" width="60px" />
 
-                  <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.Category.Name)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.Price)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.Description)
+    </td>
+
+    <td>
+
+
+    <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
+    <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Details</a> |
+    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>
+
+    </td>
+    </tr>
+
+
+    }
     </tbody>
-</table>
+    </table>
+*@
+
+@foreach (var item in Model)
+{
+    @*  <div class="card-box">
+        <div class="card">
+        <img src="~/Image/@item.Image" style="width:100%" />
+        <h1 class='menu-name'> @Html.DisplayFor(modelItem => item.Name)</h1>
+        <h1 class='menu-name'>@Html.DisplayFor(modelItem => item.Category.Name)</h1>
+        <p class="price"> @Html.DisplayFor(modelItem => item.Price)</p>
+        <p> @Html.DisplayFor(modelItem => item.Description)</p>
+        <p><button>Add to Cart</button></p>
+        <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
+        <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Details</a> |
+        <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>
+        </div>
+        </div>*@
+
+
+
+
+    <div class="card">
+        <div class="card-image"> <img src="~/Image/@item.Image" style="width:100%" /></div>
+        <div class="card-text">
+            <span class="date">@Html.DisplayFor(modelItem => item.Category.Name)</span>
+            <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
+            <span class="date">@Html.DisplayFor(modelItem => item.Price)</span>
+            <p>@Html.DisplayFor(modelItem => item.Description)</p>
+        </div>
+        <div class="card-stats">
+            <div class="stat">
+                <div class="value"><a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id">Edit</a></div>
+
+            </div>
+            <div class="stat">
+                <div class="value"><a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Details</a></div>
+
+            </div>
+            <div class="stat">
+                <div class="value"><a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id">Delete</a></div>
+
+            </div>
+        </div>
+    </div>
+}
+
+
+@*Page View*@
+<div class="container">
+    @if (pager.TotalPages > 0)
+    {
+        <ul class="pagination justify-content-end">
+
+            @if (pager.TotalPages > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Menu" asp-action="Index" asp-route-pg="1"> First </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Menu" asp-action="Index" asp-route-pg="@(pager.CurrentPage-1)"> Previous </a>
+                </li>
+            }
+
+
+            @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+            {
+                <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
+                    <a class="page-link" asp-controller="Menu" asp-action="Index" asp-route-pg="@pge"> @pge </a>
+                </li>
+            }
+
+            @if (pager.CurrentPage < pager.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Menu" asp-action="Index" asp-route-pg="@(pager.CurrentPage + 1)"> Next </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Menu" asp-action="Index" asp-route-pg="@(pager.TotalPages)"> Last </a>
+                </li>
+            }
+        </ul>
+    }
+</div>
+
+
+
+
+

@@ -1,0 +1,62 @@
+﻿@model Restaurant_Management_System_CRUD.Models.Table;
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Save</h1>
+
+<h4>Table Type</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label">Table Image</label>
+                    <input asp-for="ImageFile" class="form-control" type="file" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+              @*  @if (Model.Id == 0)
+                {
+                }*@
+            @*    else
+                {
+                    <input asp-for="ImageFile" class="form-control" type="file" />
+                    <img src="~/@Model.Image" height="50" width="50" />
+                }*@
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="NoOfChair" class="control-label">No of Chair</label>
+                <input asp-for="NoOfChair" class="form-control"/>
+                <span asp-validation-for="NoOfChair" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-danger">Back to List</a>
+          @*      @if (Model.Id == 0)
+                {
+                }
+                else
+                {
+                    <input type="submit" value="Edit" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-danger">Back to List</a>
+                }*@
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

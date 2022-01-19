@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Restaurant_Management_System_CRUD.Context;
 using Restaurant_Management_System_CRUD.Models;
+using Restaurant_Management_System_CRUD.ViewModel;
 using System.Dynamic;
 
 namespace Restaurant_Management_System_CRUD.Controllers
@@ -19,12 +20,13 @@ namespace Restaurant_Management_System_CRUD.Controllers
         // GET: ViewCustomerController
         public ActionResult Index()
         {
-            var dataa = db.ViewCustomer.Include("Customer").ToList();
-            return View(dataa);
+
+            var data = db.RestuarantCustomer.ToList();
+            return View(data);
         }
 
         // GET: ViewCustomerController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details()
         {
             return View();
         }
@@ -32,13 +34,14 @@ namespace Restaurant_Management_System_CRUD.Controllers
         // GET: ViewCustomerController/Create
         public ActionResult Create()
         {
-            return View();
+
+                   return View();
         }
 
         // POST: ViewCustomerController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(ViewCustomer viewCustomer)
         {
             try
             {
@@ -48,6 +51,7 @@ namespace Restaurant_Management_System_CRUD.Controllers
             {
                 return View();
             }
+          
         }
 
         // GET: ViewCustomerController/Edit/5
@@ -59,7 +63,7 @@ namespace Restaurant_Management_System_CRUD.Controllers
         // POST: ViewCustomerController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, ViewCustomer viewCustomer)
         {
             try
             {

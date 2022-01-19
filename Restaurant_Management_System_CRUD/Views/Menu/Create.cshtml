@@ -1,7 +1,7 @@
-﻿@model Restaurant_Management_System_CRUD.ViewModel.MenuVm
-
+﻿@model Restaurant_Management_System_CRUD.Models.Menu
 @{
     ViewData["Title"] = "Create";
+    var categories = ViewData["categories"] as IEnumerable<Category>;
 }
 
 <h1>Create</h1>
@@ -10,22 +10,17 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-              <div class="form-group">
-                <label asp-for="Category" class="control-label"></label>
-                @*<input asp-for="Category" class="form-control" />
-                <span asp-validation-for="Category" class="text-danger">*@
-                    @*@Html.DropDownList("CountryList", new  SelectList(new[] {"Nepal", "India", "Bangladesh", "Pakistan", "China"}), "Select", new { @class = "form-control"})*@
-
-                    <select asp-for="CategoryId" class = "form-control" asp-items="@(new SelectList(ViewBag.listofitems,"Id", "Name"))" ></select>
-
-                </span>
+              <div class="form-group">S
+                <label asp-for="CategoryId" class="control-label">Category</label>
+                    <select asp-for="CategoryId" class = "form-control" asp-items="@(new SelectList(categories,"Id", "Name"))" ></select>
+                
             </div>
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
@@ -36,6 +31,11 @@
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label">Upload Image</label>
+                <input asp-for="ImageFile" class="form-control" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
