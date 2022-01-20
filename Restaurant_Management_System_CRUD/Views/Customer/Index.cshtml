@@ -1,7 +1,22 @@
-﻿@model IEnumerable<Restaurant_Management_System_CRUD.Models.Customer>
+﻿@using Restaurant_Management_System_CRUD.Views.Shared.Components.SearchBar;
+
+@model IEnumerable<Restaurant_Management_System_CRUD.Models.Customer>
+@*@model X.PagedList.IPagedList<Restaurant_Management_System_CRUD.Models.Customer>
+    @using X.PagedList;*@
+
 
 @{
     ViewData["Title"] = "Index";
+    SPager pager = new SPager();
+    int pageNo = 0;
+    if (ViewBag.SearchPager != null)
+    {
+        pager = ViewBag.Searchpager;
+        pageNo = pager.CurrentPage;
+    }
+
+    //int startRecord = (pager.CurrentPage - 1) * pager.PageSize + 1;
+    //int endRecord = startRecord - 1 + pager.PageSize;
 }
 
 <h1>Index</h1>
@@ -10,28 +25,24 @@
     <a asp-action="Create" class="btn btn-success">Create New</a>
 </p>
 
-@*@using (Html.BeginForm())  
-{  
-    <p>  
-        Search Menu: @Html.TextBox("Search_Data", ViewBag.FilterValue as string)  
-        <input type="submit" value="Find" />  
-    </p>  
-}  *@
-   
-
-
-@*<form asp-controller="Customer" asp-action="Index">
+@*@using (Html.BeginForm())
+    {
     <p>
-        <input type="text" name="searchString" placeholder="search..." />
-        <input type="submit" value="Filter" />
+    Search Customer: @Html.TextBox("Search_Data", ViewBag.FilterValue as string)
+    <input type="submit" value="Find" />
     </p>
-</form>*@
+    }  *@
+
+
+
+
+<vc:search-bar search-pager="@ViewBag.SearchPager" bottom-bar="false"></vc:search-bar>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @*@Html.DisplayNameFor(model => model.Name)*@
-                                @Html.ActionLink("Name", "Index", new { Sorting_Order = ViewBag.SortingName })  
+                @Html.ActionLink("Name", "Index", new { Sorting_Order = ViewBag.SortingName })
 
             </th>
             <th>
@@ -47,26 +58,34 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone)
-            </td>
-            <td>
-                <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<vc:search-bar search-pager="@ViewBag.SearchPager" bottom-bar="true"></vc:search-bar>
+
+
+
+
+

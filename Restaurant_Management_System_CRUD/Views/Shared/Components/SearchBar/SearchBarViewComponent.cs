@@ -9,8 +9,13 @@ namespace Restaurant_Management_System_CRUD.Views.Shared.Components.SearchBar
 
         }
 
-        public IViewComponentResult Invoke(SPager SearchPager)
+        public IViewComponentResult Invoke(SPager SearchPager, bool BottomBar = false)
         {
+            if (BottomBar == true)
+            {
+                return View("BottomBar", SearchPager);
+            }
+            else
             return View("Default", SearchPager);
         }
     }

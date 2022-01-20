@@ -8,6 +8,8 @@ using Restaurant_Management_System_CRUD.Models;
 using Microsoft.AspNetCore.Http;
 using System.Diagnostics;
 using Restaurant_Management_System_CRUD.ViewModel;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using X.PagedList;
 
 namespace Restaurant_Management_System_CRUD.Controllers
 {
@@ -25,7 +27,7 @@ namespace Restaurant_Management_System_CRUD.Controllers
 
         }
         // GET: MenuController
-        public IActionResult Index(string Sorting_Order, string Search_Data, string Filter_Value, int pg = 1)
+        public IActionResult Index(string Sorting_Order, string Search_Data , string Filter_Value, int pg=1 )
         {
             ViewBag.SortingName = String.IsNullOrEmpty(Sorting_Order) ? "Name_Description" : "";
             ViewBag.SortingCategory = String.IsNullOrEmpty(Sorting_Order) ? "Category_Description" : "";
@@ -57,14 +59,14 @@ namespace Restaurant_Management_System_CRUD.Controllers
                     dataa = dataa.OrderByDescending(_menu => _menu.Category);
                     break;
                 case "Price":
-                    dataa = dataa.OrderByDescending(_menu => _menu.Price);
+                    dataa = dataa.OrderBy(_menu => _menu.Price);
                     break;
                 default:
                     dataa = dataa.OrderBy(_menu => _menu.Name);
                     break;
             }
 
-/*            return View(dataa.ToList());*/
+            /*            return View(dataa.ToList());*/
 
             //pagination
             const int pageSize = 3;
@@ -75,13 +77,11 @@ namespace Restaurant_Management_System_CRUD.Controllers
             int menuCount = dataa.Count();
             var pager = new Pager(menuCount, pg, pageSize);
             int recSkip = (pg - 1) * pageSize;
-            var menuRecords =  dataa.Skip(recSkip).Take(pager.PageSize).ToList();
+            var menuRecords = dataa.Skip(recSkip).Take(pager.PageSize).ToList();
             this.ViewBag.Pager = pager;
             return View(menuRecords.ToList());
 
         }
-
-
 
         // GET: MenuController/Details/5
         public IActionResult Details(int id)

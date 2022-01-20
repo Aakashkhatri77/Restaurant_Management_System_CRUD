@@ -1,0 +1,35 @@
+﻿@using Restaurant_Management_System_CRUD.Views.Shared.Components.SearchBar
+@model SPager
+
+
+<div class="container m=0 p=0 btn-group" style="background-color:lightgray; border-radius:25px; height:45px;">
+
+    @*Code to show the list item record*@
+    <div class="col-4 btn-group p-1 m-1">
+        Showing @Model.StartRecord to @Model.EndRecord of @Model.TotalItems Rows
+    </div>
+
+    <div class="col-4 btn-group justify-content-end">
+        <span class="col-7 mt-2 p-0">
+            Rows Per Page
+        </span>
+        <span class="col-5 p-1">
+            <select class="form-control" id="pageSelector" asp-items="@ViewBag.PageSizes"
+                    onchange="ChangePageSize(this,'@Model.SearchData');">
+            </select>
+        </span>
+    </div>
+
+    @*Code to Select the selected page*@
+    <div class="col-4 btn-group justify-content-end p-1 m-1">
+        Showing @Model.StartPage / @Model.TotalPages Pages
+    </div>
+</div>
+
+
+@*this method request the data from the controller for the selected page size*@
+<script>
+    function ChangePageSize(obj, searchtext){
+        window.location.href = "/@Model.Controller/@Model.Action" + "?pageSize=" + obj.value + "&SearchText=" + searchtext;
+    }
+</script>
