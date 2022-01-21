@@ -20,7 +20,7 @@ body {
 .logo {
     margin: 0 30px;
     max-width: 40px;
-    left: 20;
+    left: 20px;
 }
 
 /*.container-fluid{
@@ -68,7 +68,6 @@ body {
     .card button:hover {
         opacity: 0.7;
     }*/
-
 .card {
     display: grid;
     grid-template-columns: 300px;
@@ -79,8 +78,8 @@ body {
     box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
     font-family: roboto;
     text-align: center;
-    width:fit-content;
-    display:inline-grid;
+    width: fit-content;
+    display: inline-grid;
     height: 481px
 }
 

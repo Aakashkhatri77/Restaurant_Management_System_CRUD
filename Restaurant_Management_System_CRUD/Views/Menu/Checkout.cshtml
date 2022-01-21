@@ -13,7 +13,7 @@
     var sessionObj = JsonConvert.DeserializeObject<List<CartViewModel>>(session);
 }
 
-@if (sessionObj!=null)
+@if (sessionObj != null)
 {
     <table class="table table-responsive">
         <thead class="thead-primary">
@@ -26,7 +26,7 @@
             </tr>
         </thead>
         <tbody>
-               
+
             @foreach (var item in sessionObj)
             {
                 <tr class="text-center">
@@ -36,7 +36,7 @@
                     <td class="menu-name"><h3>@item.MenuName</h3></td>
                     <td class="price">@item.Price</td>
                     <td class="quantity">@item.Quantity</td>
-                   
+
                     <td class="total">@item.Total</td>
                 </tr>
             }
@@ -51,7 +51,7 @@
                 <hr />
                 <p class="d-flex total-price">
                     <span>Total</span>
-                
+
                     <span>Rs. @sessionObj.Sum(p=>p.Total)</span>
                 </p>
             </div>

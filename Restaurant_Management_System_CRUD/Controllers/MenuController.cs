@@ -27,8 +27,9 @@ namespace Restaurant_Management_System_CRUD.Controllers
 
         }
         // GET: MenuController
-        public IActionResult Index(string Sorting_Order, string Search_Data , string Filter_Value, int pg=1 )
+        public IActionResult Index(string Sorting_Order, string Filter_Value, string Search_Data , int pg=1 )
         {
+            ViewBag.CurrentSort = Sorting_Order;
             ViewBag.SortingName = String.IsNullOrEmpty(Sorting_Order) ? "Name_Description" : "";
             ViewBag.SortingCategory = String.IsNullOrEmpty(Sorting_Order) ? "Category_Description" : "";
             ViewBag.SortingPrice = String.IsNullOrEmpty(Sorting_Order) ? "Price" : "";
@@ -56,7 +57,7 @@ namespace Restaurant_Management_System_CRUD.Controllers
                     dataa = dataa.OrderByDescending(_menu => _menu.Name);
                     break;
                 case "Category_Description":
-                    dataa = dataa.OrderByDescending(_menu => _menu.Category);
+                    dataa = dataa.OrderBy(_menu => _menu.Category);
                     break;
                 case "Price":
                     dataa = dataa.OrderBy(_menu => _menu.Price);
@@ -69,7 +70,7 @@ namespace Restaurant_Management_System_CRUD.Controllers
             /*            return View(dataa.ToList());*/
 
             //pagination
-            const int pageSize = 3;
+            const int pageSize = 6;
             if (pg < 1)
             {
                 pg = 1;

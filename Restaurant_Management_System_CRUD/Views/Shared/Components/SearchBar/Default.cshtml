@@ -33,7 +33,7 @@
                 @for (var pge = Model.StartPage; pge <= Model.EndPage; pge++)
                 {
                     <li class="page-item @(pge == Model.CurrentPage ? "active" : "")">
-                        <a class="page-link" asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-pg="@pge"> @pge </a>
+                        <a class="page-link" asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-pg="@pge" asp-route-Filter_Value="@ViewBag.FilterValue"> @pge </a>
                     </li>
                 }
 

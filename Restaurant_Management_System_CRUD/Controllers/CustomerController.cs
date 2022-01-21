@@ -40,9 +40,19 @@ namespace Restaurant_Management_System_CRUD.Controllers
         }
 
         // GET: CustomerController
-        public ActionResult Index(string Sorting_Order, string Search_Data, int pg = 1, int pageSize = 5)
+        public ActionResult Index(string Sorting_Order, string Filter_Value, string Search_Data, int pg = 1, int pageSize = 5)
         {
             ViewBag.SortingName = String.IsNullOrEmpty(Sorting_Order) ? "Name_Description" : "";
+
+            if (Search_Data != null)
+            {
+                pg = 1;
+            }
+            else
+            {
+                Search_Data = Filter_Value;
+            }
+            ViewBag.FilterValue = Search_Data;
 
             var dataa = from _name in db.RestuarantCustomer select _name;
             if (!String.IsNullOrEmpty(Search_Data))

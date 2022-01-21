@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<Restaurant_Management_System_CRUD.Models.Menu>
 @{
     ViewData["Title"] = "Index";
+  
 
     Pager pager = new Pager();
 
@@ -22,14 +23,14 @@
 {
     <div class="search-sort">
 
-    <div class="search">
+        <div class="search">
 
             <p>
                 Search Menu: @Html.TextBox("Search_Data", ViewBag.FilterValue as string)
                 <input type="submit" value="Find" />
             </p>
-    </div>
-    <div class="dropdown">
+        </div>
+        <div class="dropdown">
             <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                 Sort By:
             </a>
@@ -50,7 +51,7 @@
         <div class="card-text">
             <span class="date">@Html.DisplayFor(modelItem => item.Category.Name)</span>
             <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
-            <span class="date">@Html.DisplayFor(modelItem => item.Price)</span>
+            <span class="date">Rs.@Html.DisplayFor(modelItem => item.Price)</span>
             <p>@Html.DisplayFor(modelItem => item.Description)</p>
         </div>
         <div class="card-stats">
@@ -77,10 +78,10 @@
     {
         <ul class="pagination justify-content-end">
 
-            @if (pager.TotalPages > 1)
+            @if (pager.CurrentPage > 1)
             {
                 <li class="page-item">
-                    <a class="page-link" asp-controller="Menu" asp-action="Index" asp-route-pg="1"> First </a>
+                    <a class="page-link" asp-controller="Menu" asp-action="Index" asp-route-pg="1" > First </a>
                 </li>
                 <li class="page-item">
                     <a class="page-link" asp-controller="Menu" asp-action="Index" asp-route-pg="@(pager.CurrentPage-1)"> Previous </a>
@@ -91,7 +92,7 @@
             @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
             {
                 <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
-                    <a class="page-link" asp-controller="Menu" asp-action="Index" asp-route-pg="@pge"> @pge </a>
+                    <a class="page-link" asp-controller="Menu" asp-action="Index" asp-route-pg="@pge" asp-route-Sorting_Order="@ViewBag.CurrentSort" asp-route-Filter_Value="@ViewBag.FilterValue" > @pge </a>
                 </li>
             }
 
@@ -104,6 +105,8 @@
                     <a class="page-link" asp-controller="Menu" asp-action="Index" asp-route-pg="@(pager.TotalPages)"> Last </a>
                 </li>
             }
+
+           
         </ul>
     }
 </div>
